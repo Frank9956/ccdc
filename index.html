@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Year of Us</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Landing Page Section -->
+    <section id="landing-page" class="landing-page">
+        <div class="landing-content">
+            <h1 class="main-title">Happy New Year, My Love</h1>
+            <p class="quote">"Every moment with you is a memory I cherish."</p>
+            <button id="start-btn" class="primary-btn">Start Our Journey</button>
+        </div>
+        <div class="background-elements">
+            <div class="heart-shape"></div>
+            <div class="heart-shape small"></div>
+        </div>
+    </section>
+
+    <!-- Timeline Popup Section (Hidden by default) -->
+    <div id="timeline-popup" class="timeline-popup hidden">
+        <div class="popup-container">
+            <!-- Header for Month -->
+            <header class="timeline-header">
+                <h2 id="month-name" class="cursive-text">January</h2>
+            </header>
+
+            <!-- Photos Container -->
+            <div class="photos-grid" id="photos-grid">
+                <!-- Javascript will inject photos here -->
+                <div class="photo-placeholder"></div>
+                <div class="photo-placeholder"></div>
+                <div class="photo-placeholder"></div>
+            </div>
+
+            <!-- Footer for Navigation -->
+            <footer class="timeline-footer">
+                <p class="timeline-note cursive-text" id="month-note">Sample note about this month...</p>
+                <div class="nav-container">
+                    <!-- User requested "left button to move to next month" which is a bit unusual, 
+                         usually right is next. I will place the 'Next' button on the right for usability 
+                         but can adjust if they strictly meant physically on the left. 
+                         Let's put a clear arrow button. -->
+                    <button id="next-btn" class="nav-btn">Next Month &rarr;</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Letter Section -->
+    <div id="letter-modal" class="letter-modal hidden">
+        <div class="envelope-container" id="envelope-container">
+            <div class="envelope">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body"></div>
+                <div class="letter">
+                    <h2 class="cursive-text">My Dearest,</h2>
+                    <p>
+                        As we step into this New Year, I want you to know how much you mean to me.
+                        This past year has been magical because of you.
+                        <br><br>
+                        Here's to many more memories, laughter, and love.
+                        <br><br>
+                        Forever yours,<br>
+                        [Your Name]
+                    </p>
+                </div>
+            </div>
+            <button id="open-envelope-btn" class="secondary-btn">Open Message</button>
+            <a id="whatsapp-btn" href="https://wa.me/1234567890?text=I%20loved%20the%20surprise!" target="_blank"
+                class="whatsapp-btn hidden">Reply on WhatsApp 💚</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

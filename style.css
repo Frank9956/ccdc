@@ -1,0 +1,417 @@
+:root {
+    --primary-font: 'Poppins', sans-serif;
+    --cursive-font: 'Dancing Script', cursive;
+
+    /* Landing Colors */
+    --landing-bg: #fff0f5;
+    /* Lavender Blush */
+    --text-color: #4a4a4a;
+    --accent-pink: #ff6b81;
+
+    /* Timeline Colors */
+    --timeline-bg: #0a192f;
+    /* Deep Navy Blue */
+    --timeline-text: #e6f1ff;
+    --timeline-gold: #ffd700;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--primary-font);
+    overflow-x: hidden;
+}
+
+/* Utilities */
+.hidden {
+    display: none !important;
+}
+
+.cursive-text {
+    font-family: var(--cursive-font);
+}
+
+/* Landing Page */
+.landing-page {
+    height: 100vh;
+    width: 100%;
+    background: var(--landing-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.landing-content {
+    z-index: 2;
+    padding: 2rem;
+}
+
+.main-title {
+    font-family: var(--cursive-font);
+    font-size: 4rem;
+    color: var(--accent-pink);
+    margin-bottom: 1rem;
+    animation: fadeInDown 1.5s ease;
+}
+
+.quote {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+    font-style: italic;
+    animation: fadeInUp 1.5s ease 0.5s forwards;
+    opacity: 0;
+}
+
+.primary-btn {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    background-color: var(--accent-pink);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeInUp 1.5s ease 1s forwards;
+    opacity: 0;
+}
+
+.primary-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(255, 107, 129, 0.3);
+}
+
+/* Background Hearts */
+.background-elements .heart-shape {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 182, 193, 0.4);
+    transform: rotate(45deg);
+    top: 10%;
+    left: 10%;
+    border-radius: 50%;
+    filter: blur(50px);
+}
+
+
+
+
+/* Timeline Popup */
+.timeline-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--timeline-bg);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s;
+    color: var(--timeline-text);
+}
+
+.popup-container {
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    justify-content: space-between;
+}
+
+.timeline-header h2 {
+    font-size: 4rem;
+    color: var(--timeline-gold);
+    margin-bottom: 1rem;
+}
+
+/* Photo Stack System */
+.photos-grid {
+    position: relative;
+    width: 100%;
+    /* Adjust based on parent */
+    height: 400px;
+    /* Fixed height for stack area */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* Hide flying cards */
+    margin: 20px 0;
+}
+
+.photo-placeholder {
+    position: absolute;
+    width: 300px;
+    height: 350px;
+    background-color: #fff;
+    border: 5px solid #fff;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    cursor: grab;
+    transition: transform 0.2s ease;
+    /* Smooth reset */
+    user-select: none;
+    /* Prevent image dragging ghost */
+}
+
+.photo-placeholder:active {
+    cursor: grabbing;
+}
+
+.photo-placeholder.swiped-left {
+    transition: transform 0.5s ease, opacity 0.5s;
+    transform: translateX(-150%) rotate(-30deg) !important;
+    opacity: 0;
+}
+
+.timeline-note {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #b0c4de;
+}
+
+.nav-container {
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    /* "Left button" might mean button ON the left, or arrow pointing left? context says "move to next", usually right. I'll put it on right for now.*/
+}
+
+.nav-btn {
+    background: transparent;
+    border: 2px solid var(--timeline-gold);
+    color: var(--timeline-gold);
+    padding: 10px 20px;
+    font-family: var(--primary-font);
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 30px;
+    transition: all 0.3s;
+}
+
+.nav-btn:hover {
+    background: var(--timeline-gold);
+    color: var(--timeline-bg);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Letter Modal */
+.letter-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Envelope Animation System */
+.envelope-container {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background: transparent;
+    cursor: pointer;
+    perspective: 1000px;
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #e74c3c;
+    /* Envelope Red/Pink */
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform-style: preserve-3d;
+    transition: transform 1s ease;
+}
+
+/* The Flap */
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 110px solid #c0392b;
+    /* Darker shade of envelope */
+    transform-origin: top;
+    transition: transform 0.6s 0.2s ease, z-index 0.2s;
+    z-index: 5;
+}
+
+/* The Body (Pocket) - Visual trickery using borders or pseudo elements */
+.envelope-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-left: 150px solid #e74c3c;
+    /* Main color */
+    border-right: 150px solid #e74c3c;
+    border-bottom: 100px solid #d64132;
+    /* Slightly darker for depth */
+    border-top: 100px solid transparent;
+    /* Opening from top */
+    z-index: 4;
+    pointer-events: none;
+    /* Let clicks pass through if needed */
+}
+
+/* The Letter */
+.letter {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    width: calc(100% - 30px);
+    height: calc(100% - 20px);
+    background: white;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 1s ease;
+    z-index: 3;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.letter h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.letter p {
+    font-size: 0.8rem;
+    color: #555;
+    line-height: 1.4;
+    font-family: var(--primary-font);
+}
+
+/* Open State Animations */
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+    /* Move behind letter */
+}
+
+.envelope.open .letter {
+    top: -50%;
+    height: 250px;
+    /* Expand letter */
+    transform: translateY(-50px) scale(1.5);
+    z-index: 10;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    overflow-y: auto;
+    /* Allow scrolling if long text */
+}
+
+/* Button positioning fix */
+.secondary-btn {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #e74c3c;
+    font-weight: bold;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+}
+
+.secondary-btn:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+.whatsapp-btn {
+    position: absolute;
+    bottom: -80px;
+    /* Below the Open button area */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #25D366;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s;
+    white-space: nowrap;
+    z-index: 20;
+    opacity: 0;
+    /* Starts hidden for animation */
+    animation: fadeInUp 0.5s forwards;
+}
+
+.whatsapp-btn:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-btn.visible {
+    opacity: 1;
+    bottom: -100px;
+    /* Slight movement for effect */
+}
