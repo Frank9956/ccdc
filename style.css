@@ -178,6 +178,12 @@ body {
     opacity: 0;
 }
 
+.photo-placeholder.swiped-right {
+    transition: transform 0.5s ease, opacity 0.5s;
+    transform: translateX(150%) rotate(30deg) !important;
+    opacity: 0;
+}
+
 .timeline-note {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -260,23 +266,40 @@ body {
 /* Envelope Animation System */
 .envelope-container {
     position: relative;
-    width: 300px;
-    height: 200px;
-    background: transparent;
-    cursor: pointer;
+    width: 320px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     perspective: 1000px;
+    margin-bottom: 50px;
+    /* Space for buttons */
 }
 
 .envelope {
     position: relative;
     width: 100%;
     height: 100%;
-    background: #e74c3c;
-    /* Envelope Red/Pink */
+    background: #e03e52;
+    /* Premium Red */
     border-radius: 5px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     transform-style: preserve-3d;
     transition: transform 1s ease;
+}
+
+/* Texture overlay for paper feel */
+.envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 6;
 }
 
 /* The Flap */
@@ -286,32 +309,55 @@ body {
     left: 0;
     width: 0;
     height: 0;
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-top: 110px solid #c0392b;
-    /* Darker shade of envelope */
+    border-left: 160px solid transparent;
+    /* matches width/2 */
+    border-right: 160px solid transparent;
+    border-top: 120px solid #c0283b;
+    /* Darker Red */
     transform-origin: top;
-    transition: transform 0.6s 0.2s ease, z-index 0.2s;
+    transition: transform 0.6s 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), z-index 0.2s;
     z-index: 5;
 }
 
-/* The Body (Pocket) - Visual trickery using borders or pseudo elements */
+/* Wax Seal */
+.wax-seal {
+    position: absolute;
+    top: 100px;
+    /* Position at tip of flap */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #ffd700, #b8860b);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 2px 2px rgba(255, 255, 255, 0.5);
+    z-index: 6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: #8b6914;
+    font-family: serif;
+    transition: opacity 0.4s ease;
+}
+
+.wax-seal::after {
+    content: '❤';
+}
+
+/* The Body (Pocket) */
 .envelope-body {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    border-left: 150px solid #e74c3c;
-    /* Main color */
-    border-right: 150px solid #e74c3c;
-    border-bottom: 100px solid #d64132;
-    /* Slightly darker for depth */
-    border-top: 100px solid transparent;
-    /* Opening from top */
+    border-left: 160px solid #e03e52;
+    border-right: 160px solid #e03e52;
+    border-bottom: 110px solid #d12e43;
+    border-top: 110px solid transparent;
     z-index: 4;
     pointer-events: none;
-    /* Let clicks pass through if needed */
 }
 
 /* The Letter */
@@ -321,8 +367,9 @@ body {
     left: 15px;
     width: calc(100% - 30px);
     height: calc(100% - 20px);
-    background: white;
-    padding: 15px;
+    background: #fffdf5;
+    /* Cream paper */
+    padding: 20px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: all 1s ease;
@@ -335,15 +382,16 @@ body {
 }
 
 .letter h2 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px;
+    font-family: var(--cursive-font);
+    font-size: 2rem;
+    color: #e03e52;
+    margin-bottom: 15px;
 }
 
 .letter p {
-    font-size: 0.8rem;
-    color: #555;
-    line-height: 1.4;
+    font-size: 0.95rem;
+    color: #4a4a4a;
+    line-height: 1.6;
     font-family: var(--primary-font);
 }
 
@@ -351,48 +399,58 @@ body {
 .envelope.open .envelope-flap {
     transform: rotateX(180deg);
     z-index: 1;
-    /* Move behind letter */
+}
+
+.envelope.open .wax-seal {
+    opacity: 0;
+    /* Hide seal when opened */
 }
 
 .envelope.open .letter {
-    top: -50%;
-    height: 250px;
-    /* Expand letter */
-    transform: translateY(-50px) scale(1.5);
+    top: -60%;
+    height: 350px;
+    /* Taller reading area */
+    transform: translateY(-50px) scale(1.1);
+    /* Slight Zoom for focus */
     z-index: 10;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
     overflow-y: auto;
-    /* Allow scrolling if long text */
 }
 
 /* Button positioning fix */
 .secondary-btn {
     position: absolute;
-    bottom: -60px;
+    bottom: -80px;
+    /* Fixed distance from envelope */
     left: 50%;
     transform: translateX(-50%);
     background: #fff;
-    color: #e74c3c;
+    color: #e03e52;
     font-weight: bold;
-    border-radius: 20px;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 1rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transition: 0.3s;
+    cursor: pointer;
+    border: none;
 }
 
 .secondary-btn:hover {
-    background: #e74c3c;
+    background: #e03e52;
     color: white;
+    transform: translateX(-50%) scale(1.05);
 }
 
 .whatsapp-btn {
     position: absolute;
     bottom: -80px;
-    /* Below the Open button area */
+    /* Same position as Open button to replace it */
     left: 50%;
     transform: translateX(-50%);
     background: #25D366;
     color: white;
-    padding: 12px 25px;
+    padding: 12px 30px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: bold;
@@ -401,17 +459,36 @@ body {
     white-space: nowrap;
     z-index: 20;
     opacity: 0;
-    /* Starts hidden for animation */
-    animation: fadeInUp 0.5s forwards;
+    display: block;
+    /* Ensure it takes space */
 }
 
 .whatsapp-btn:hover {
     transform: translateX(-50%) scale(1.05);
-    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
 }
 
 .whatsapp-btn.visible {
     opacity: 1;
-    bottom: -100px;
-    /* Slight movement for effect */
+    animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.3);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.05);
+    }
+
+    70% {
+        transform: translateX(-50%) scale(0.9);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
 }

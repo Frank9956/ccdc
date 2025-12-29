@@ -99,15 +99,7 @@ function loadMonth(index) {
         monthNameEl.textContent = data.name;
         monthNoteEl.textContent = data.note;
 
-        // Clear and rebuild photos
-        photosGridEl.innerHTML = '';
-        const photoCount = data.photos.length || 3; // Default to 3 if empty
 
-        // Render photos as a stack (Reverse order so first index is on TOP)
-        // We render from last to first in DOM order?? 
-        // No, absolute positioning: late elements are on top. 
-        // So render index 0 last to be on top? 
-        // Actually, z-index is easier. Let's render all.
 
         // Clear logic
         photosGridEl.innerHTML = '';
@@ -218,6 +210,10 @@ function makeSwipeable(card) {
         if (translateX < -100) {
             // Swiped Left -> Fly out
             card.classList.add('swiped-left');
+            setTimeout(() => card.remove(), 500);
+        } else if (translateX > 100) {
+            // Swiped Right -> Fly out
+            card.classList.add('swiped-right');
             setTimeout(() => card.remove(), 500);
         } else {
             // Snap back
