@@ -103,13 +103,39 @@ function loadMonth(index) {
         photosGridEl.innerHTML = '';
         const photoCount = data.photos.length || 3; // Default to 3 if empty
 
+        // Render photos as a stack (Reverse order so first index is on TOP)
+        // We render from last to first in DOM order?? 
+        // No, absolute positioning: late elements are on top. 
+        // So render index 0 last to be on top? 
+        // Actually, z-index is easier. Let's render all.
+
+        // Clear logic
+        photosGridEl.innerHTML = '';
+        const photoCount = data.photos.length || 3;
+
+        // We render index 0 LAST so it sits on top if we rely on DOM order,
+        // OR we set z-index. Let's do z-index.
         for (let i = 0; i < photoCount; i++) {
             const div = document.createElement('div');
             div.className = 'photo-placeholder';
+
+            // Image
             if (data.photos[i]) {
                 div.style.backgroundImage = `url(${data.photos[i]})`;
+            } else {
+                div.style.background = `white`; // Fallback
             }
-            // div.style.background = `rgba(255,255,255, ${0.1 + (i * 0.05)})`; // fallback
+
+            // Stacking: Index 0 should be highest Z.
+            div.style.zIndex = 100 - i;
+
+            // Random tiny rotation for realism
+            const randomRot = Math.random() * 6 - 3; // -3 to 3 deg
+            div.style.transform = `rotate(${randomRot}deg)`;
+
+            // Add Swipe Logic
+            makeSwipeable(div);
+
             photosGridEl.appendChild(div);
         }
 
@@ -154,3 +180,58 @@ openEnvelopeBtn.addEventListener('click', () => {
         whatsappBtn.classList.add('visible');
     }, 1000);
 });
+
+// Swipe Logic Helper
+function makeSwipeable(card) {
+    let isDragging = false;
+    let startX = 0;
+
+    // Mouse & Touch Start
+    const onDown = (e) => {
+        e.preventDefault(); // Stop default scroll
+        isDragging = true;
+        startX = (e.clientX || e.touches[0].clientX);
+        card.style.transition = 'none';
+        card.style.cursor = 'grabbing';
+    };
+
+    // Move
+    const onMove = (e) => {
+        if (!isDragging) return;
+        const currentX = (e.clientX || (e.touches ? e.touches[0].clientX : 0));
+        const deltaX = currentX - startX;
+        const rotate = deltaX * 0.1;
+        card.style.transform = `translateX(${deltaX}px) rotate(${rotate}deg)`;
+    };
+
+    // End
+    const onUp = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        card.style.cursor = 'grab';
+
+        // Check computed transform to find distance moved
+        const style = window.getComputedStyle(card);
+        const matrix = new WebKitCSSMatrix(style.transform);
+        const translateX = matrix.m41;
+
+        if (translateX < -100) {
+            // Swiped Left -> Fly out
+            card.classList.add('swiped-left');
+            setTimeout(() => card.remove(), 500);
+        } else {
+            // Snap back
+            card.style.transition = 'transform 0.3s ease';
+            card.style.transform = 'rotate(0deg)';
+        }
+    };
+
+    card.addEventListener('mousedown', onDown);
+    card.addEventListener('touchstart', onDown, { passive: false });
+
+    // Use document for move/up to catch drag outside element
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('touchmove', onMove, { passive: false });
+    document.addEventListener('mouseup', onUp);
+    document.addEventListener('touchend', onUp);
+}
