@@ -153,7 +153,7 @@ body {
 
 .photo-placeholder {
     position: absolute;
-    width: 300px;              /* you control size here */
+    width: 200px;              /* you control size here */
     aspect-ratio: 3 / 3.5;       /* ✅ 3:4 ratio */
 
     background-color: #fff;
