@@ -153,14 +153,17 @@ body {
 
 .photo-placeholder {
     position: absolute;
-    width: 200px;              /* you control size here */
-    aspect-ratio: 3 / 3.5;       /* ✅ 3:4 ratio */
+    width: 200px;
+    /* you control size here */
+    aspect-ratio: 3 / 3.5;
+    /* ✅ 3:4 ratio */
 
     background-color: #fff;
     border: 5px solid #fff;
     border-radius: 10px;
 
-    background-size: contain;   /* image fits fully */
+    background-size: contain;
+    /* image fits fully */
     background-position: center;
     background-repeat: no-repeat;
 
@@ -493,5 +496,50 @@ body {
 
     100% {
         transform: translateX(-50%) scale(1);
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .timeline-header h2 {
+        font-size: 3rem;
+    }
+
+    /* Scale down the envelope entire container including buttons */
+    .envelope-container {
+        transform: scale(0.8);
+        margin-bottom: 30px;
+    }
+
+    /* Adjust the letter popup on mobile so it doesn't go off-screen */
+    .envelope.open .letter {
+        height: 600px;
+        top: -100%;
+        /* Start lower so top is visible */
+        transform: translateY(0) scale(1);
+        font-size: 0.9rem;
+        padding: 20px;
+    }
+
+    .letter h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .secondary-btn,
+    .whatsapp-btn {
+        bottom: -250px;
+        /* Bring buttons a bit closer if needed */
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 400px) {
+    .envelope-container {
+        transform: scale(0.7);
+    }
+
+    .timeline-header h2 {
+        font-size: 2.5rem;
     }
 }
