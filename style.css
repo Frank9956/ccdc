@@ -153,20 +153,23 @@ body {
 
 .photo-placeholder {
     position: absolute;
-    width: 300px;
-    height: 350px;
+    width: 300px;              /* you control size here */
+    aspect-ratio: 3 / 3.5;       /* ✅ 3:4 ratio */
+
     background-color: #fff;
     border: 5px solid #fff;
     border-radius: 10px;
-    background-size: cover;
+
+    background-size: contain;   /* image fits fully */
     background-position: center;
+    background-repeat: no-repeat;
+
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     cursor: grab;
     transition: transform 0.2s ease;
-    /* Smooth reset */
     user-select: none;
-    /* Prevent image dragging ghost */
 }
+
 
 .photo-placeholder:active {
     cursor: grabbing;
