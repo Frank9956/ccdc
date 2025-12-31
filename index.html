@@ -15,12 +15,15 @@
 </head>
 
 <body>
+    <audio id="bg-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- Landing Page Section -->
     <section id="landing-page" class="landing-page">
         <div class="landing-content">
-            <h1 class="main-title">Happy New Year, My Baby</h1>
-            <p class="quote">"At every moment of life, I LOVE YOU 💝"</p>
+            <h1 class="main-title">Happy New Year,<br> My Baby</h1>
+            <p class="quote">"At every moment of life,<br> I LOVE YOU 💝"</p>
             <button id="start-btn" class="primary-btn quote">Something For You!</button>
         </div>
         <div class="background-elements">
@@ -28,6 +31,14 @@
             <div class="heart-shape small"></div>
         </div>
     </section>
+    <!-- Swipe Instruction Popup -->
+    <div id="instruction-popup" class="instruction-popup hidden">
+        <div class="instruction-box">
+            <h2 class="cursive-text">Just a small tip 💕</h2>
+            <p>Swipe left ➡️ or right ⬅️ to see our more photos together</p>
+            <button id="instruction-ok" class="primary-btn">Okay</button>
+        </div>
+    </div>
 
     <!-- Timeline Popup Section (Hidden by default) -->
     <div id="timeline-popup" class="timeline-popup hidden">
@@ -83,9 +94,8 @@
                 </div>
             </div>
             <button id="open-envelope-btn" class="secondary-btn">Open Message</button>
-            <a id="whatsapp-btn"
-                href="https://wa.me/919140019817"
-                target="_blank" class="whatsapp-btn hidden">Reply on WhatsApp 💚</a>
+            <a id="whatsapp-btn" href="https://wa.me/919140019817" target="_blank" class="whatsapp-btn hidden">Reply on
+                WhatsApp 💚</a>
         </div>
     </div>
 

@@ -543,3 +543,42 @@ body {
         font-size: 2.5rem;
     }
 }
+
+.instruction-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.instruction-box {
+    background: #fff;
+    padding: 30px 35px;
+    border-radius: 18px;
+    text-align: center;
+    max-width: 320px;
+    animation: scaleIn 0.4s ease;
+}
+
+.instruction-box p {
+    margin: 15px 0 25px;
+    font-size: 15px;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.hidden {
+    display: none;
+}
